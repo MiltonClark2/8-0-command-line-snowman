@@ -7,34 +7,118 @@ const readline = require("readline-sync");
 */
 const dictionary = require("./dictionary");
 
+
+// let playerGuess = "";
+// let correctLettersGuessed = [];
+// let wrongLettersGuessed = [];
+// let allLettersGuessed = [];
+// let maxNumberOfTurns = 0;
+
 /*
-  This function returns a random word from the list in `src/dictionary.js`. You do not need to update or edit this function. Instead, you only need to call it from the `run()` function.
+
+function hasLetterGuessed(guess){
+  return secretWord.includes(guess);
+}
+
+function addCorrectLettersToList(guess){
+  correctLettersGuessed.push(guess);
+  return correctLettersGuessed;
+}
+
+Remaining Incorrect Guesses: 7
+Letters Guessed: None
+Word: _ _ _ _ _ _
+
+
+
+  setting up game state
+  What data do we need to access or update?
+    - secret word
+    - correct guesses
+    - wrong guesses
+    - max num of wrong guesses
+
+    What do we do with that data?
+    - put a random secret word into state
+    - check if a guess is correct
+    - add a correct guess to the list
+    - check if the game is won
+    = check if the player lost (reached max number of turns)
+
+    Write Helper Functions
+    1. one that checks if the Player's guess is correct 
+    function hasLetterGuessed (guess){
+      return secretWord.includes(guess);
+    }
+    2. adds correct guess to list of all guesses plus secret word.
+    function addRightGuessToList (guess){
+      rightLettersGuessed.push(guess);
+      return rightLettersGuessed;
+    }
+
 */
+// function hasLetterGuessed(guess){
+//   return secretWord.includes(guess);
+// }
+// hasLetterGuessed(userInput);
+
+
+
 function getRandomWord() {
   const index = Math.floor(Math.random() * dictionary.length);
   return dictionary[index];
 }
 
-/*
-  This function will run your game. Everything you want to happen in your game should happen inside of here.
 
-  You should still define other, smaller functions outside of the `run()` function that have a single specific purpose, such as getting user input or checking if a guess is correct. You can then call these helper functions from inside the `run()` function.
 
-  Once you understand the code below, you may remove the comments if you like.
-*/
 function run() {
-  // This line of code gets a random word. The `word` variable will be a string.
-  const word = getRandomWord();
-  /*
-    The line of code below stops the execution of your program to ask for input from the user. The user can enter whatever they want!
+  // This line of code gets a random word. 
+  // const word = getRandomWord();
 
-    The text that will show up to the user will be "Guess a letter: ". Whatever value is entered will be assigned to the variable `userInput`.
+  let word = "Happy";
+  let secretWord = "";
+//Use a while loop to ask the player to guess a letter and to keep track of player turns.
+  let numOfTurnsLeft = 6;
+  while(numOfTurnsLeft > 0){
+    const userInput = readline.question("Guess a letter: ");
+    console.log("THE USER INPUTTED:", userInput);
+  
+    numOfTurnsLeft--;
+    console.log(`Remaining Incorrect Guesses: ${numOfTurnsLeft}
+      Letters Guessed: None
+      Word: ${secretWord}`);
+  }
 
-    After a user hits the 'return' key, the rest of the code will run.
-  */
-  const userInput = readline.question("Guess a letter: ");
-  // This line of code will print out whatever is inputted in by the user.
-  console.log("THE USER INPUTTED:", userInput);
+
+
+
+   // This accumulator pattern code converts the secret word to underscores and puts a space in between each letter.
+
+  for(let i = 0;i < word.length;i++){
+    if(word[i] === userInput){
+
+      secretWord += userInput;
+    } else {
+      secretWord += "_";
+    }
+    
+    
+    if(i !== word.length - 1){
+      secretWord += " ";
+    }
+  }
+
+
+
+
+  
+  
+
+
+   
+  
+
+
 }
 
 run();
